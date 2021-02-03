@@ -21,7 +21,8 @@ const propertySchema = new Schema({
   },
   pictures: {
     type: [{
-      type: String
+      type: String,
+      required: true,
     }]
   },
   rooms: {

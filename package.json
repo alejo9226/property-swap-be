@@ -6,8 +6,13 @@
   "author": "Alejandro Alfaro <alejo9226@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "node dist/server.js",
     "dev": "nodemon src/server.ts",
-    "start": "node src/server.ts"
+    "postinstall": "tsc",
+    "deploy": "git add . && git commit -m Heroku && git push heroku master"
+  },
+  "engines": {
+    "node": "12.16.1"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",

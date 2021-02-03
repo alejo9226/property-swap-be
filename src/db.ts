@@ -10,6 +10,7 @@ export async function connect(): Promise<void> {
   const options = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   }
 
   connection = mongoose.connection

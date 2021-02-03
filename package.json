@@ -6,9 +6,9 @@
   "author": "Alejandro Alfaro <alejo9226@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "ts-node src/server.ts",
-    "dev": "nodemon -x ts-node src/server.ts",
+    "start": "node dist/server.js",
     "build": "tsc",
+    "dev": "nodemon -x ts-node src/server.ts",
     "deploy": "git add . && git commit -m Heroku && git push heroku master"
   },
   "engines": {

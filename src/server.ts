@@ -1,7 +1,7 @@
 import { connect } from './db'
 import app from './app'
 
-const port = 8000 || process.env.PORT
+const port = process.env.PORT || 8000
   
 connect()
 

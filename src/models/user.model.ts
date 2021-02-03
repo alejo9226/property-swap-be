@@ -3,6 +3,7 @@ import { IProperty } from './property.model'
 const emailRegex = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/
 
 export interface IUser extends Document {
+  profilePic: string;
   fullName: string;
   email: string;
   password: string;
@@ -10,6 +11,9 @@ export interface IUser extends Document {
 }
 
 const userSchema = new Schema({
+  profilePic: {
+    type: String
+  },
   fullName: {
     type: String,
     required: true,

@@ -14,6 +14,7 @@ interface DataStoredInToken {
 function auth (req: Request, res: Response, next: NextFunction) {
   try {
     const { authorization } = req.headers
+    console.log('req.headers', req.headers)
     if (!authorization) throw new Error('Su sesión expiró')
 
     const [_, token] = authorization.split(' ')
@@ -29,6 +30,7 @@ function auth (req: Request, res: Response, next: NextFunction) {
     next();
 
   } catch (err) {
+    console.log(err)
     res.status(401).json({ message: err.message });
   }
 }

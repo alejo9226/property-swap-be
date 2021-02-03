@@ -1,9 +1,11 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import userRouter from './routes/user'
 import propertyRouter from './routes/property'
-
+import uploadRouter from './routes/upload'
 
 const app = express()
 
@@ -13,5 +15,6 @@ app.use(morgan('dev'))
 
 app.use('/user', userRouter)
 app.use('/property', propertyRouter)
+app.use('/upload', uploadRouter)
 
 export default app

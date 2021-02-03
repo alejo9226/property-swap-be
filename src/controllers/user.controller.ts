@@ -2,7 +2,6 @@ import { Request, Response, NextFunction } from 'express'
 import User, { IUser } from '../models/user.model'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { createContext } from 'vm';
 
 
 interface TokenData {

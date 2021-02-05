@@ -11,3 +11,13 @@ export async function addProperty (req: Request, res: Response, next: NextFuncti
 
   }
 }
+
+export async function getProperties (req: Request, res: Response, next: NextFunction) {
+  try {
+    const { user } = req
+    const properties: IProperty[] = await Property.find({ user: { $ne: user }}).populate('user', 'fullName')
+    res.status(200).json({ message: 'Properties found' , data: properties })
+  } catch (err) {
+    res.status(200).json({ message: 'No properties found' , data: err.message })
+  }
+}

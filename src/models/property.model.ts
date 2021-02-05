@@ -1,4 +1,4 @@
-import { model, Schema, Document } from 'mongoose'
+import { model, models, Schema, Document } from 'mongoose'
 import { IUser } from './user.model'
 
 export interface IProperty extends Document {
@@ -22,7 +22,6 @@ const propertySchema = new Schema({
   pictures: {
     type: [{
       type: String,
-      required: true,
     }]
   },
   rooms: {
@@ -34,9 +33,19 @@ const propertySchema = new Schema({
     ref: 'User',
     required: true,
   },
-  stays: Number,
+  stays: {
+    type: Number,
+    default: 0,
+  }
 }, {
   timestamps: true,
 })
+
+propertySchema.post('save', async function (this: IProperty) {
+  const user: IUser = await models.User.findById(this.user)
+  user.property = this._id
+  user.save({ validateBeforeSave: false })
+})
+
 
 export default model<IProperty>('Property', propertySchema)

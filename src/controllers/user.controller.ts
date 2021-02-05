@@ -14,15 +14,15 @@ interface DataStoredInToken {
 }
 
 function createToken(user: IUser): TokenData {
-  const expiresIn = 60 * 60 * 24; // an hour
-  const secret = `${process.env.SECRET}`;
+  const expiresIn = 60 * 60 * 24
+  const secret = `${process.env.SECRET}`
   const dataStoredInToken: DataStoredInToken = {
     _id: user._id,
-  };
+  }
   return {
     expiresIn,
     token: jwt.sign(dataStoredInToken, secret, { expiresIn }),
-  };
+  }
 }
 
 export async function signUp(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -38,7 +38,6 @@ export async function signUp(req: Request, res: Response, next: NextFunction): P
     
     res.status(201).json({ token: token.token, message: 'Cuenta creada exitosamente' })
   } catch (err) {
-    console.log(err)
     res.status(400).json({ message: err.message })
   }
 }
@@ -60,13 +59,11 @@ export async function logIn(req: Request, res: Response, next: NextFunction): Pr
 export async function getUserInfo (req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     const { user } = req
-    console.log('useer', user)
     const userInfo: IUser = await User.findOne({ _id: user })
 
     res.status(200).json({ message: 'User found', data: userInfo })
     
   } catch (err) {
     res.status(400).json({ message: 'User not found', data: err.message })
-
   }
 }

@@ -9,7 +9,6 @@ cloudinary.v2.config({
 })
 
 export async function formData (req: Request, res: Response, next: NextFunction): Promise<void> {
-  
   let uploadingFile = false
   let uploadingCount = 0
 
@@ -21,17 +20,14 @@ export async function formData (req: Request, res: Response, next: NextFunction)
   }
 
   const busboy = new Busboy({ headers: req.headers })
-  //console.log('busboy', busboy)
   req.body = {}
 
   busboy.on('field', (key, val) => {
-    //console.log('key, val', key, val)
     req.body[key] = val
   })
 
   busboy.on('file', (key, file) => {
 
-    console.log('key, file', key, file)
     uploadingFile = true
     uploadingCount++
 
@@ -41,19 +37,17 @@ export async function formData (req: Request, res: Response, next: NextFunction)
         if (err) throw new Error('Something went wrong!')
 
         req.body[key] = res
-        uploadingFile = false
         uploadingCount--
+        uploadingFile = uploadingCount === 0 ? false : true 
         done()
       }
     )
 
     file.on('data', data => {
-      //console.log('data', data)
       stream.write(data)
     })
 
     file.on('end', () => {
-      //console.log('finish')
       stream.end()
     })
   })

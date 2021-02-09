@@ -22,6 +22,16 @@ export async function getProperties (req: Request, res: Response, next: NextFunc
   }
 }
 
+export async function getOwnProperties (req: Request, res: Response, next: NextFunction) {
+  try {
+    const { user } = req
+    const properties: IProperty[] = await Property.find({ user })
+    res.status(200).json({ message: 'Properties found' , data: properties })
+  } catch (err) {
+    res.status(400).json({ message: 'No properties found' , data: err.message })
+  }
+}
+
 export async function getSingleProperty (req: Request, res: Response, next: NextFunction) {
   try {
     const { params, user } = req
